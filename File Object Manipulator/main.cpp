@@ -23,6 +23,8 @@ class FunctionNVarieblesArea {
     string uselessShit = "\0" ;
     char slashN = '\0' ;
     
+public:
+    
     void ReadNCopy() {
         getline( cin, uselessShit ) ;
         cin.get( slashN ) ;
@@ -34,16 +36,26 @@ class FunctionNVarieblesArea {
         for ( int i = 0 ; ! cin.eof() ; i ++ ) {
             getline( cin, dataBase[i].wholeSentence ) ;
             cin.get( slashN ) ;
-        } //
-    } // Kill the top three lines
-    
-    // tell me why aint nothing but a update
+        } // input the data to dataBase
+        
+        if ( FileN == 204 ) {
+            fopen( "copy204.txt", "w" ) ;
+            for ( int i = 0 ; i < dataBase.size(); i ++ ) cout << dataBase[i].wholeSentence << endl ;
+        } // copy to the new "copy204.txt" file
+        
+        else if ( FileN == 205 ) {
+            fopen( "copy205.txt", "w" ) ;
+            for ( int i = 0 ; i < dataBase.size(); i ++ ) cout << dataBase[i].wholeSentence << endl ;
+        } // copy to the new "copy205.txt" file
+    } // ReadNCopy()
     
 } ;
 
 int main() {
-    int command = 0 ;
+    int command = -1 ;
     bool continueOrNot = false ;
+    bool work = false ;
+    FunctionNVarieblesArea Class ;
     
     do {
         cout << "*****************************************" << endl ; // welcome message
@@ -54,46 +66,94 @@ int main() {
         cout << "***** 3 : Merge two files           *****" << endl ;
         cout << "*****************************************" << endl ;
         cout << endl << "Please enter your choice :" << endl ;
-        cin >> command ; // read in user command
         
-        while ( command > 3 || command < 0 ) {
-            cout << "Error command! please enter an acceptable command :" << endl ;
-            cin >> command ;
-        } // wrong command situation
+        cin >> command ; // read in user command
         
         if ( command == 0 ) { // bye :(((
             cout << "Bye :(((" << endl ;
             return 0 ;
-        } // if()
+        } // quit
         
+        if ( command > 3 || command < 0 ) {
+            cout << "Error command! please enter an acceptable command :" << endl << endl ;
+            continueOrNot = true ;
+        } // wrong command
+
         if ( command == 1 ) { // read, count and copy
-            cout << "Please enter the file  ( 204 or 205 ) you want to read and copy or [0] to quit:" << endl ;
-            cin >> FileN ;
+            bool function1Confirm = false ;
             
-            while ( FileN != 204 && FileN != 205 && FileN != 0 ) {
-                cout << "*****  input" << FileN << ".txt does not exist!  *****" << endl ;
+            do {
+                cout << "Please enter the file  ( 201 - 205 ) you want to read and copy or [0] to quit:" << endl ;
                 cin >> FileN ;
-            } // wrong filename
             
-            if ( FileN == 0 ) continueOrNot = true ;
+                if ( FileN == 0 ) {
+                    function1Confirm = true ;
+                    continueOrNot = true ;
+                } // quit
+                
+                else if ( FileN != 201 && FileN != 202 && FileN != 203 && FileN != 204 && FileN != 205 )
+                    cout << "*****  input" << FileN << ".txt does not exist!  *****" << endl ;
             
-            else if ( FileN == 204 ) fopen( "input204.txt", "r" ) ;
+                else if ( FileN == 201 ) {
+                    fopen( "input201.txt", "r" ) ;
+                    function1Confirm = true ;
+                    Class.ReadNCopy() ;
+                    work = true ;
+                } // 204
             
-            else if ( FileN == 205 ) fopen( "input205.txt", "r" ) ;
+                else if ( FileN == 202 ) {
+                    fopen( "input202.txt", "r" ) ;
+                    function1Confirm = true ;
+                    Class.ReadNCopy() ;
+                    work = true ;
+                } // 204
             
-            // FunctionNVarieblesArea.ReadNCopy() ;
+                else if ( FileN == 203 ) {
+                    fopen( "input203.txt", "r" ) ;
+                    function1Confirm = true ;
+                    Class.ReadNCopy() ;
+                    work = true ;
+                } // 204
+            
+                else if ( FileN == 204 ) {
+                    fopen( "input204.txt", "r" ) ;
+                    function1Confirm = true ;
+                    Class.ReadNCopy() ;
+                    work = true ;
+                } // 204
+            
+                else if ( FileN == 205 ) {
+                    fopen( "input205.txt", "r" ) ;
+                    function1Confirm = true ;
+                    Class.ReadNCopy() ;
+                    work = true ;
+                } // 205
+            } while( ! function1Confirm ) ;
+            
         } // mission 1
         
         if ( command == 2 ) {
-            cout << "Please enter the file ( 204 or 205 ) you want to filter or [0] to quit:" << endl ;
+            cout << "Please enter the file ( 201 - 205 ) you want to filter or [0] to quit:" << endl ;
             cin >> FileN ;
             
-            while ( FileN != 204 && FileN != 205 && FileN != 0 ) {
+            while ( FileN != 201 && FileN != 202 && FileN != 203 && FileN != 204 && FileN != 205 && FileN != 0 ) {
                 cout << "*****  copy" << FileN << ".txt does not exist!  *****" << endl ;
                 cin >> FileN ;
             } // wrong filename
             
             if ( FileN == 0 ) continueOrNot = true ;
+            
+            else if ( FileN == 201 ) {
+                if ( fopen( "copy201.txt", "r+" ) == NULL ) cout << "*****  copy201.txt does not exist!  *****" << endl ;
+            } // test if you have already create a copy file
+            
+            else if ( FileN == 202 ) {
+                if ( fopen( "copy202.txt", "r+" ) == NULL ) cout << "*****  copy202.txt does not exist!  *****" << endl ;
+            } // test if you have already create a copy file
+            
+            else if ( FileN == 203 ) {
+                if ( fopen( "copy203.txt", "r+" ) == NULL ) cout << "*****  copy203.txt does not exist!  *****" << endl ;
+            } // test if you have already create a copy file
             
             else if ( FileN == 204 ) {
                 if ( fopen( "copy204.txt", "r+" ) == NULL ) cout << "*****  copy204.txt does not exist!  *****" << endl ;
@@ -109,52 +169,53 @@ int main() {
         if ( command == 3 ) {
             int firstFile = 0 ;
             int secondFile = 0 ;
-            cout << "Please enter the first file ( 204 or 205 ) that you want to merge or [0] to quit:" << endl ;
-            cin >> firstFile ;
+            bool firstOpen = false ;
             
-            while ( firstFile != 204 && firstFile != 205 && firstFile != 0 ) {
-                cout << "*****  copy" << firstFile << ".txt does not exist!  *****" << endl ;
+            while ( ! firstOpen ) {
+                cout << "Please enter the first file ( 201 - 205 ) that you want to merge or [0] to quit:" << endl ;
                 cin >> firstFile ;
-            } // wrong filename
-            
-            if ( firstFile == 0 ) continueOrNot = true ;
-            
-            else if ( firstFile == 204 || firstFile == 205 ) {
-                if ( firstFile == 204 ) {
-                    if ( fopen( "copy204.txt", "r" ) == NULL ) cout << "*****  copy204.txt does not exist!  *****" << endl ;
-                    
-                    else {
-                        cout << "Please enter the second file ( 204 or 205 ) that you want to merge or [0] to quit:" << endl ;
-                        cin >> secondFile ;
-                        
-                        while ( secondFile != 204 && secondFile != 205 && secondFile != 0 ) {
-                            cout << "*****  copy" << secondFile << ".txt does not exist!  *****" << endl ;
-                            cin >> secondFile ;
-                        } // wrong filename
-                        
-                        if ( secondFile == 0 ) continueOrNot = true ;
-                        
-                        // else if ( secondFile == 204 || secondFile == 205 ) FunctionNVarieblesArea.Merge( firstFile, secondFile ) ;
-                    } // find out copy204.txt
-                } // if the first input is 204
                 
-                if ( firstFile == 205 ) {
+                if ( firstFile == 0 ) continueOrNot = true ;
+                
+                else if ( firstFile != 201 && firstFile != 202 && firstFile != 203 && firstFile != 204 && firstFile != 205 )
+                    cout << "*****  copy" << firstFile << ".txt does not exist!  *****" << endl ;
+                
+                else if ( firstFile == 201 ) {
+                    if ( fopen( "copy201.txt", "r" ) == NULL ) cout << "*****  copy201.txt does not exist!  *****" << endl ;
+                    else firstOpen = true ;
+                } // 201
+                
+                else if ( firstFile == 202 ) {
+                    if ( fopen( "copy202.txt", "r" ) == NULL ) cout << "*****  copy202.txt does not exist!  *****" << endl ;
+                    else firstOpen = true ;
+                } // 202
+                
+                else if ( firstFile == 203 ) {
+                    if ( fopen( "copy203.txt", "r" ) == NULL ) cout << "*****  copy203.txt does not exist!  *****" << endl ;
+                    else firstOpen = true ;
+                } // 203
+                
+                else if ( firstFile == 204 ) {
+                    if ( fopen( "copy204.txt", "r" ) == NULL ) cout << "*****  copy204.txt does not exist!  *****" << endl ;
+                    else firstOpen = true ;
+                } // 204
+                
+                else if ( firstFile == 205 ) {
                     if ( fopen( "copy205.txt", "r" ) == NULL ) cout << "*****  copy205.txt does not exist!  *****" << endl ;
-                    
-                    else {
-                        cout << "Please enter the second file ( 204 or 205 ) that you want to merge or [0] to quit:" << endl ;
-                        cin >> secondFile ;
+                    else firstOpen = true ;
+                } // 205
+                
+                cout << "Please enter the second file ( 201 - 205 ) that you want to merge or [0] to quit:" << endl ;
+                cin >> secondFile ;
                         
-                        while ( secondFile != 204 && secondFile != 205 && secondFile != 0 ) {
-                            cout << "*****  copy" << secondFile << ".txt does not exist!  *****" << endl ;
-                            cin >> secondFile ;
-                        } // wrong filename
+                while ( secondFile != 201 && secondFile != 202 && secondFile != 203 && secondFile != 204 && secondFile != 205 && secondFile != 0 ) {
+                    cout << "*****  copy" << secondFile << ".txt does not exist!  *****" << endl ;
+                    cin >> secondFile ;
+                } // wrong filename
                         
-                        if ( secondFile == 0 ) continueOrNot = true ;
+                if ( secondFile == 0 ) continueOrNot = true ;
                         
-                        // else if ( secondFile == 204 || secondFile == 205 ) FunctionNVarieblesArea.Merge( firstFile, secondFile ) ;
-                    } // find out copy205.txt
-                } // if the first input is 205
+                // else ( secondFile == 201 || secondFile == 202 || secondFile == 203 || secondFile == 204 || secondFile == 205 ) FunctionNVarieblesArea.Merge( firstFile, secondFile ) ;
             } // if the first input is acceptable
         } // mission 3
         
