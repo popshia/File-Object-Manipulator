@@ -3,6 +3,9 @@
 #include <fstream> // open, is_open, close, ignore
 #include <string> // string, find_last_of, substr
 #include <vector> // vector, push_back
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std ;
 
@@ -78,7 +81,6 @@ public:
     bool Filter() {
         int students = 0 ;
         int graduated = 0 ;
-        char whatIWant[100] ;
         cout << "Please enter number of students that you want to filter:" << endl ;
         cin >> students ;
         cout << "Please enter number of graduated students that you want to filter:" << endl ;
@@ -88,10 +90,6 @@ public:
             getline( input, tempData.wholeSentence ) ;
             dataBase.push_back( tempData ) ;
         } // for()
-        
-        for ( int i = 0 ; i < dataBase.size() ; i ++ ) {
-            
-        }
         
     } // Filter()
     
