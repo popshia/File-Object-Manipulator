@@ -76,13 +76,12 @@ public:
     void ReadNCopy() {
         DataBase tempData ;
         dataBase.clear() ;
-        string uselessShit = "\0" ;
-        getline( input, uselessShit ) ;
-        getline( input, uselessShit ) ;
-        getline( input, uselessShit ) ;
+        string useless = "\0" ;
+        getline( input, useless ) ;
+        getline( input, useless ) ;
+        getline( input, useless ) ;
         
-        for ( int i = 0 ; ! input.eof() ; i ++ ) {
-            getline( input, tempData.wholeSentence ) ;
+        while ( getline( input, tempData.wholeSentence ) ) {
             Count ++ ;
             dataBase.push_back( tempData ) ;
         } // input the data to dataBase
@@ -93,26 +92,25 @@ public:
         else if ( FileN == 204 ) output.open( "copy204.txt" ) ;
         else if ( FileN == 205 ) output.open( "copy205.txt" ) ;
         
-        for ( int i = 0 ; i < dataBase.size() ; i ++ ) output << dataBase[i].wholeSentence << endl ;
+        for ( int i = 0 ; i < dataBase.size() - 1 ; i ++ ) output << dataBase[i].wholeSentence << endl ;
+        output << dataBase[dataBase.size()-1].wholeSentence ;
     } // ReadNCopy()
     
     void Filter() {
         dataBase.clear() ;
         int studentNum = 0 ;
         int graduatedNum = 0 ;
-        bool test = false ;
         cout << "Please enter number of students that you want to filter:" << endl ;
         cin >> studentNum ;
         cout << "Please enter number of graduated students that you want to filter:" << endl ;
         cin >> graduatedNum ;
         inputData( dataBase ) ;
+        cout << studentNum << "  " << graduatedNum << endl ;
         
-        for ( int i = 0 ; i < dataBase.size() ; i ++ ) {
-            cout << dataBase[i].schoolNum << "  " << dataBase[i].schoolName << "  " << dataBase[i].student << "  " << dataBase[i].graduated << endl ;
-            test = true ;
-        } // test
+        /*for ( int i = 0 ; i < dataBase.size() ; i ++ )
+            cout << dataBase[i].schoolNum << "  " << dataBase[i].schoolName << "  " << dataBase[i].student << "  " << dataBase[i].graduated << endl ;*/
         
-        /*if ( FileN == 201 ) output.open( "copy201.txt" ) ;
+        if ( FileN == 201 ) output.open( "copy201.txt" ) ;
         else if ( FileN == 202 ) output.open( "copy202.txt" ) ;
         else if ( FileN == 203 ) output.open( "copy203.txt" ) ;
         else if ( FileN == 204 ) output.open( "copy204.txt" ) ;
@@ -120,10 +118,11 @@ public:
         
         for ( int i = 0 ; i < dataBase.size() ; i ++ ) {
             if ( dataBase[i].student > studentNum && dataBase[i].graduated > graduatedNum ) {
+                // cout << dataBase[i].student << "  " << dataBase[i].graduated << endl ;
                 output << dataBase[i].wholeSentence << endl ;
                 Count ++ ;
             } // find the one match
-        } // filter and print*/
+        } // filter and print
     } // Filter()
     
     void Merge() {
@@ -292,6 +291,8 @@ int main() {
                 } // test if you have already create a copy file
             } while ( ! function2Confirm ) ;
             
+            cout << "Data Count: " << Count << endl ;
+            Count = 0 ;
             FileN = 0 ;
             input.close() ;
             output.close() ;
