@@ -12,6 +12,7 @@ using namespace std ;
 
 static int FileN = 0 ;
 static ifstream input ;
+ststic ifstream input2 ;
 static ofstream output ;
 static int Count = 0 ;
 
@@ -49,6 +50,10 @@ public:
             tempData.schoolName = cut[1] ;
             tempData.departmentNum = cut[2] ;
             tempData.departmentName = cut[3] ;
+            /*cout << tempData.schoolNum << endl ;
+            cout << tempData.schoolName << endl ;
+            cout << tempData.departmentNum << endl ;
+            cout << tempData.departmentName << endl ;*/
             
             if ( cut[6].size() > 3 ) {
                 cut[6].erase( find( cut[6].begin(), cut[6].end(), '"' ) ) ;
@@ -106,7 +111,7 @@ public:
             test = true ;
         } // test
         
-        /* if ( FileN == 201 ) output.open( "copy201.txt" ) ;
+        /*if ( FileN == 201 ) output.open( "copy201.txt" ) ;
         else if ( FileN == 202 ) output.open( "copy202.txt" ) ;
         else if ( FileN == 203 ) output.open( "copy203.txt" ) ;
         else if ( FileN == 204 ) output.open( "copy204.txt" ) ;
@@ -117,6 +122,38 @@ public:
                 output << dataBase[i].wholeSentence << endl ;
         } // filter and print*/
     } // Filter()
+    
+    void Merge() {
+        vector<DataBase> mergeDataBase1 ;
+        vector<DataBase> mergeDataBase2 ;
+        inputData( mergeDataBase1 ) ;
+        inputData( mergeDataBase2 ) ;
+        bool NoSame = false ;
+        
+        /*for ( int i = 0 ; i < mergeDataBase2.size() ; i ++ ) {
+            for ( int j = 0 ; j < mergeDataBase1.size() ; j ++ ) {
+                if( mergeDataBase2[i].schoolNum == mergeDataBase1[j].schoolNum ) {
+                    if( mergeDataBase2[i].departmentNum == mergeDataBase1[j].departmentNum &&
+                       mergeDataBase2[i].departmentNum != mergeDataBase1[j + 1].departmentNum ) // 下一個就是別系 = 本系最後一個
+                        mergeDataBase1.insert( mergeDataBase1[j + 1], mergeDataBase2[i] ) ;
+                } // same school num & same department num
+                
+                else if( mergeDataBase2[i].schoolNum == mergeDataBase1[j].schoolNum ){
+                    if( mergeDataBase2[i].schoolNum != mergeDataBase1[j + 1].schoolNum ) // 下一個就是別校 = 本校最後一個
+                        mergeDataBase1.insert( mergeDataBase1[j + 1], mergeDataBase2[i] );
+                } // same school num & not same departmnet num
+                
+                else
+                    NoSame = true;// not same school num & not same department num
+            } // for
+            
+            
+            if ( NoSame ) {
+                mergeDataBase1.push_back( mergeDataBase2[i] ) ;
+                NoSame = false;
+            } // if
+        } // for*/
+    } // Merge()
     
 } ;
 
