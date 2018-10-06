@@ -51,10 +51,42 @@ public:
             tempData.schoolName = cut[1] ;
             tempData.departmentNum = cut[2] ;
             tempData.departmentName = cut[3] ;
-            /*cout << tempData.schoolNum << endl ;
-            cout << tempData.schoolName << endl ;
-            cout << tempData.departmentNum << endl ;
-            cout << tempData.departmentName << endl ;*/
+            
+            if ( cut[6].size() > 3 ) {
+                cut[6].erase( find( cut[6].begin(), cut[6].end(), '"' ) ) ;
+                cut[6].erase( find( cut[6].begin(), cut[6].end(), ',' ) ) ;
+                cut[6].erase( find( cut[6].begin(), cut[6].end(), '"' ) ) ;
+            } // erase '"' & ','
+            tempData.student = atoi( cut[6].c_str() ) ;
+            
+            if ( cut[8].size() > 3 ) {
+                cut[8].erase( find( cut[8].begin(), cut[8].end(), '"' ) ) ;
+                cut[8].erase( find( cut[8].begin(), cut[8].end(), ',' ) ) ;
+                cut[8].erase( find( cut[8].begin(), cut[8].end(), '"' ) ) ;
+            } // erase '"' & ','
+            tempData.graduated = atoi( cut[8].c_str() ) ;
+            data.push_back( tempData ) ;
+        } // while()
+    } // inputData()
+    
+    void inputData2( vector<DataBase> & data ) {
+        DataBase tempData ;
+        string sentence = "\0" ;
+        
+        while ( getline( input2, sentence ) ) {
+            // cout << sentence << endl ;
+            tempData.wholeSentence = sentence ;
+            vector<string> cut ;
+            string token ;
+            istringstream cutStream( sentence ) ;
+            
+            while( getline( cutStream, token, '\t' ) )
+                cut.push_back( token ) ;
+            
+            tempData.schoolNum = cut[0] ;
+            tempData.schoolName = cut[1] ;
+            tempData.departmentNum = cut[2] ;
+            tempData.departmentName = cut[3] ;
             
             if ( cut[6].size() > 3 ) {
                 cut[6].erase( find( cut[6].begin(), cut[6].end(), '"' ) ) ;
@@ -129,7 +161,7 @@ public:
         vector<DataBase> mergeDataBase1 ;
         vector<DataBase> mergeDataBase2 ;
         inputData( mergeDataBase1 ) ;
-        inputData( mergeDataBase2 ) ;
+        inputData2( mergeDataBase2 ) ;
         bool NoSame = false ;
         
         /*for ( int i = 0 ; i < mergeDataBase2.size() ; i ++ ) {
