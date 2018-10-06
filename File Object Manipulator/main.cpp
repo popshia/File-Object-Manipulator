@@ -149,7 +149,7 @@ public:
         else if ( FileN == 205 ) output.open( "copy205.txt" ) ;
         
         for ( int i = 0 ; i < dataBase.size() ; i ++ ) {
-            if ( dataBase[i].student > studentNum && dataBase[i].graduated > graduatedNum ) {
+            if ( dataBase[i].student >= studentNum && dataBase[i].graduated >= graduatedNum ) {
                 // cout << dataBase[i].student << "  " << dataBase[i].graduated << endl ;
                 output << dataBase[i].wholeSentence << endl ;
                 Count ++ ;
