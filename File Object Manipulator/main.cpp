@@ -7,16 +7,19 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <cstdlib>
+#include <iomanip>
+#include <algorithm>
 
 using namespace std ;
 
 static int FileN = 0 ;
 static ifstream input ;
-ststic ifstream input2 ;
+static ifstream input2 ;
 static ofstream output ;
 static int Count = 0 ;
 
-struct DataBase {
+typedef struct DataBase {
     string schoolNum = "\0" ;
     string schoolName = "\0" ;
     string departmentNum = "\0" ;
@@ -24,16 +27,14 @@ struct DataBase {
     int student = 0 ;
     int graduated = 0 ;
     string wholeSentence = "\0" ;
-} ;
-
-typedef struct DataBase Data ;
+} Data ;
 
 class FunctionNVarieblesArea {
     vector<DataBase> dataBase ;
     
 public:
     void inputData( vector<DataBase> & data ) {
-        Data tempData ;
+        DataBase tempData ;
         string sentence = "\0" ;
         
         while ( getline( input, sentence ) ) {
@@ -73,7 +74,7 @@ public:
     } // inputData()
     
     void ReadNCopy() {
-        Data tempData ;
+        DataBase tempData ;
         dataBase.clear() ;
         string uselessShit = "\0" ;
         getline( input, uselessShit ) ;
@@ -118,8 +119,10 @@ public:
         else if ( FileN == 205 ) output.open( "copy205.txt" ) ;
         
         for ( int i = 0 ; i < dataBase.size() ; i ++ ) {
-            if ( dataBase[i].student > studentNum && dataBase[i].graduated > graduatedNum )
+            if ( dataBase[i].student > studentNum && dataBase[i].graduated > graduatedNum ) {
                 output << dataBase[i].wholeSentence << endl ;
+                Count ++ ;
+            } // find the one match
         } // filter and print*/
     } // Filter()
     
