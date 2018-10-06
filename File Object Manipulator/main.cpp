@@ -29,14 +29,14 @@ typedef struct DataBase Data ;
 
 class FunctionNVarieblesArea {
     vector<DataBase> dataBase ;
-    Data tempData ;
     
 public:
     void inputData( vector<DataBase> & data ) {
+        Data tempData ;
         string sentence = "\0" ;
         
         while ( getline( input, sentence ) ) {
-            cout << sentence << endl ;
+            // cout << sentence << endl ;
             tempData.wholeSentence = sentence ;
             vector<string> cut ;
             string token ;
@@ -67,7 +67,8 @@ public:
         } // while()
     } // inputData()
     
-    bool ReadNCopy() {
+    void ReadNCopy() {
+        Data tempData ;
         dataBase.clear() ;
         string uselessShit = "\0" ;
         getline( input, uselessShit ) ;
@@ -87,12 +88,9 @@ public:
         else if ( FileN == 205 ) output.open( "copy205.txt" ) ;
         
         for ( int i = 0 ; i < dataBase.size() ; i ++ ) output << dataBase[i].wholeSentence << endl ;
-        
-        if ( output.is_open() )return true ;
-        else return false ;
     } // ReadNCopy()
     
-    bool Filter() {
+    void Filter() {
         dataBase.clear() ;
         int studentNum = 0 ;
         int graduatedNum = 0 ;
@@ -108,9 +106,6 @@ public:
             test = true ;
         } // test
         
-        if ( test ) return false ;
-        else return false ;
-        
         /* if ( FileN == 201 ) output.open( "copy201.txt" ) ;
         else if ( FileN == 202 ) output.open( "copy202.txt" ) ;
         else if ( FileN == 203 ) output.open( "copy203.txt" ) ;
@@ -120,10 +115,7 @@ public:
         for ( int i = 0 ; i < dataBase.size() ; i ++ ) {
             if ( dataBase[i].student > studentNum && dataBase[i].graduated > graduatedNum )
                 output << dataBase[i].wholeSentence << endl ;
-        } // filter and print
-        
-        if ( output.is_open() ) return true ;
-        else return false ; */
+        } // filter and print*/
     } // Filter()
     
 } ;
@@ -131,7 +123,6 @@ public:
 int main() {
     int command = 0 ;
     bool continueOrNot = false ;
-    bool work = false ;
     FunctionNVarieblesArea Class ;
     
     do {
@@ -171,35 +162,16 @@ int main() {
                 else if ( FileN != 201 && FileN != 202 && FileN != 203 && FileN != 204 && FileN != 205 )
                     cout << "*****  input" << FileN << ".txt does not exist!  *****" << endl ;
                 
-                else if ( FileN == 201 ) {
-                    input.open( "input201.txt" ) ;
+                else {
+                    if ( FileN == 201 ) input.open( "input201.txt" ) ;
+                    else if ( FileN == 202 ) input.open( "input202.txt" ) ;
+                    else if ( FileN == 203 ) input.open( "input203.txt" ) ;
+                    else if ( FileN == 204 ) input.open( "input204.txt" ) ;
+                    else if ( FileN == 205 ) input.open( "input205.txt" ) ;
                     function1Confirm = true ;
-                    work = Class.ReadNCopy() ;
+                    continueOrNot = true ;
+                    Class.ReadNCopy() ;
                 } // 204
-                
-                else if ( FileN == 202 ) {
-                    input.open( "input202.txt" ) ;
-                    function1Confirm = true ;
-                    work = Class.ReadNCopy() ;
-                } // 204
-                
-                else if ( FileN == 203 ) {
-                    input.open( "input203.txt" ) ;
-                    function1Confirm = true ;
-                    work = Class.ReadNCopy() ;
-                } // 204
-                
-                else if ( FileN == 204 ) {
-                    input.open( "input204.txt" ) ;
-                    function1Confirm = true ;
-                    work = Class.ReadNCopy() ;
-                } // 204
-                
-                else if ( FileN == 205 ) {
-                    input.open( "input205.txt" ) ;
-                    function1Confirm = true ;
-                    work = Class.ReadNCopy() ;
-                } // 205
             } while( ! function1Confirm ) ;
             
             cout << "Data Count: " << Count << endl ;
@@ -230,7 +202,8 @@ int main() {
                     
                     else {
                         function2Confirm = true ;
-                        work = Class.Filter() ;
+                        continueOrNot = true ;
+                        Class.Filter() ;
                     } // find copy 201
                 } // test if you have already create a copy file
                 
@@ -240,7 +213,8 @@ int main() {
                     
                     else {
                         function2Confirm = true ;
-                        work = Class.Filter() ;
+                        continueOrNot = true ;
+                        Class.Filter() ;
                     } // find copy 202
                 } // test if you have already create a copy file
                 
@@ -250,7 +224,8 @@ int main() {
                     
                     else {
                         function2Confirm = true ;
-                        work = Class.Filter() ;
+                        continueOrNot = true ;
+                        Class.Filter() ;
                     } // find copy 203
                 } // test if you have already create a copy file
                 
@@ -260,7 +235,8 @@ int main() {
                     
                     else {
                         function2Confirm = true ;
-                        work = Class.Filter() ;
+                        continueOrNot = true ;
+                        Class.Filter() ;
                     } // find copy 204
                 } // test if you have already create a copy file
                 
@@ -270,7 +246,8 @@ int main() {
                     
                     else {
                         function2Confirm = true ;
-                        work = Class.Filter() ;
+                        continueOrNot = true ;
+                        Class.Filter() ;
                     } // find copy 205
                 } // test if you have already create a copy file
             } while ( ! function2Confirm ) ;
